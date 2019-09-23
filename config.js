@@ -1,0 +1,6 @@
+exports.default = {
+  name: 'st-element',
+  version: '1.0.0',
+  main: './index.js',
+  types: 'index.d.ts'
+}

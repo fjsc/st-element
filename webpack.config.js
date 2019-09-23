@@ -1,6 +1,12 @@
-const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const TerserPlugin = require('terser-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const nodeExternals = require('webpack-node-externals')
+const GeneratePackageJsonPlugin = require('generate-package-json-webpack-plugin')
+const versionsPackageFilename = __dirname + "/package.json"
+const basePackageValues = require('./config');
+
+const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
   entry: './src/index.ts',
@@ -16,11 +22,12 @@ module.exports = {
       })
     ]
   },
+  externals: isProd ? [nodeExternals()] : [],
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        loader: 'awesome-typescript-loader',
         exclude: /node_modules/
       }
     ]
@@ -29,13 +36,14 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js']
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
+    new GeneratePackageJsonPlugin(basePackageValues, versionsPackageFilename),
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'src/test.html'
+      template: 'src/index.html'
     })
   ]
 };

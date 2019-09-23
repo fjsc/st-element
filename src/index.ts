@@ -1,1 +1,1 @@
-import './web-components/my-element.ts';
+import './st-element/st-element.ts';
