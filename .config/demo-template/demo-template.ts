@@ -10,6 +10,7 @@
  */
 
 import {css, customElement, html, internalProperty, LitElement, property, TemplateResult, unsafeCSS} from 'lit-element';
+import '@vanillawc/wc-markdown/index'
 import '../../src/components/st-horizontal-tabs';
 import styles from './demo-template.css';
 
@@ -51,7 +52,7 @@ export class DemoTemplate extends LitElement {
       html`<textarea>${this.demoSourceCode}</textarea>
           ` : ''}
             ${this.currentSection === TemplateSections.changelog ?
-      html`<textarea disabled>${this.changelog}</textarea>
+      html`<wc-markdown>${this.changelog}</wc-markdown>
           ` : ''}
             ${this.currentSection === TemplateSections.sourceCode ?
       html`<textarea>${this.sourceCode}</textarea>` : ''}
